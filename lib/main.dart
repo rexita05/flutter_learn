@@ -10,10 +10,14 @@ import './ui/v_sidebar.dart' as detail;
 import './ui/v_formulir.dart' as formulir;
 import './ui/v_login.dart' as login;
 import './ui/v_google.dart' as signin;
+import './ui/v_crud.dart' as crud;
+import 'package:firebase_core/firebase_core.dart';
 // import './ui/page_radio.dart' as radio;
 // import './ui/page_sound.dart' as sound;
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MaterialApp(
     debugShowCheckedModeBanner: false,
     title: "Flutter Learn",
@@ -50,7 +54,7 @@ class _SplashScreenState extends State<SplashScreen> {
             const Text("FLUTTER LEARN", style: TextStyle(fontSize: 20, color: Colors.blue, fontWeight: FontWeight.bold),),
             const SizedBox(height: 20,),
             const CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.blueAccent),
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.teal),
             ),
           ],
         ),
@@ -121,7 +125,8 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin{
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.lightBlueAccent,
+        backgroundColor: Colors.teal,
+        centerTitle: true,
         title: const Text("Menu Sidebar", style: TextStyle(color: Colors.white)),
       ),
       drawer: Drawer(
@@ -181,6 +186,15 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin{
               onTap: (){
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (BuildContext context)=>signin.LoginPage())
+                );
+              },
+            ),
+            ListTile(
+              title: const Text("Firebase CRUD"),
+              trailing: const FaIcon(FontAwesomeIcons.listAlt, size: 19,),
+              onTap: (){
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (BuildContext context)=>crud.Crud())
                 );
               },
             ),
