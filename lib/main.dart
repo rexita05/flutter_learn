@@ -10,6 +10,8 @@ import './ui/v_sidebar.dart' as detail;
 import './ui/v_formulir.dart' as formulir;
 import './ui/v_login.dart' as login;
 import './ui/v_google.dart' as signin;
+// import './ui/page_radio.dart' as radio;
+// import './ui/page_sound.dart' as sound;
 
 void main() {
   runApp(const MaterialApp(
