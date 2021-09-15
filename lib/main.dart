@@ -14,7 +14,7 @@ import './ui/v_google.dart' as signin;
 void main() {
   runApp(const MaterialApp(
     debugShowCheckedModeBanner: false,
-    title: "Flutter Tab Bar",
+    title: "Flutter Learn",
     home: SplashScreen(),
   ));
 }
