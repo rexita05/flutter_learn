@@ -54,7 +54,7 @@ class _SplashScreenState extends State<SplashScreen> {
             const Text("FLUTTER LEARN", style: TextStyle(fontSize: 20, color: Colors.blue, fontWeight: FontWeight.bold),),
             const SizedBox(height: 20,),
             const CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.teal),
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
             ),
           ],
         ),
