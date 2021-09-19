@@ -1,16 +1,15 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-// import 'package:cloud_firestore/cloud_firestore.dart';
-// import 'package:flutter_learn/ui/v_crud.dart';
-// import 'package:firebase_core/firebase_core.dart';
-// import 'dart:async';
+// import './v_crud.dart' as crud;
 
 class EditData extends StatefulWidget {
   // const EditData({Key? key}) : super(key: key);
-  const EditData({Key? key, required this.kode, required this.nama_pelanggan, required this.material,}) : super(key: key);
+  const EditData({Key? key, required this.kode, required this.nama_pelanggan, required this.material, required this.index}) : super(key: key);
 
   final String kode;
   final String nama_pelanggan;
   final String material;
+  final index;
 
   @override
   _EditDataState createState() => _EditDataState();
@@ -21,9 +20,9 @@ class _EditDataState extends State<EditData> {
   final TextEditingController controllerNamaPelanggan = TextEditingController();
   final TextEditingController controllerMaterial = TextEditingController();
 
-  String kode='';
-  String nama='';
-  String material='';
+  String kodePel='';
+  String namaPel='';
+  String materialPel='';
 
   @override
   void initState() {
@@ -32,6 +31,22 @@ class _EditDataState extends State<EditData> {
     controllerKode.text = widget.kode;
     controllerNamaPelanggan.text = widget.nama_pelanggan;
     controllerMaterial.text = widget.material;
+
+    kodePel=widget.kode;
+    namaPel=widget.nama_pelanggan;
+    materialPel=widget.material;
+  }
+
+  _updateData(){
+    FirebaseFirestore.instance.runTransaction((transaction)async{
+      DocumentSnapshot snapshot = await transaction.get(widget.index);
+      await transaction.update(snapshot.reference,{
+        "kode":kodePel,
+        "nama_pelanggan":namaPel,
+        "material":materialPel
+      });
+    });
+    Navigator.pop(context);
   }
 
   @override
@@ -56,7 +71,7 @@ class _EditDataState extends State<EditData> {
                   controller: controllerKode,
                   onChanged: (String value){
                     setState(() {
-                      kode=value;
+                      kodePel=value;
                     });
                   },
                   decoration: InputDecoration(
@@ -73,7 +88,7 @@ class _EditDataState extends State<EditData> {
                   controller: controllerNamaPelanggan,
                   onChanged: (String value){
                     setState(() {
-                      nama=value;
+                      namaPel=value;
                     });
                   },
                   decoration: InputDecoration(
@@ -90,7 +105,7 @@ class _EditDataState extends State<EditData> {
                   controller: controllerMaterial,
                   onChanged: (String value){
                     setState(() {
-                      material=value;
+                      materialPel=value;
                     });
                   },
                   decoration: InputDecoration(
@@ -129,7 +144,7 @@ class _EditDataState extends State<EditData> {
         backgroundColor: Colors.teal,
         child: const Icon(Icons.save_outlined),
         onPressed: (){
-
+          _updateData();
         },
       ),
     );

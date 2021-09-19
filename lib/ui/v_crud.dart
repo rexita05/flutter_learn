@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_learn/ui/v_addlist.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:get/get_core/src/get_main.dart';
 import './v_editlist.dart';
 
 class Crud extends StatefulWidget {
@@ -16,6 +15,14 @@ class Crud extends StatefulWidget {
 class _CrudState extends State<Crud> {
   final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance.collection('pelanggan').snapshots();
   String title="Learn CRUD";
+
+  _deleteData(document){
+    FirebaseFirestore.instance.runTransaction((transaction)async{
+      DocumentSnapshot snapshot=await transaction.get(document.reference);
+      await transaction.delete(snapshot.reference);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -36,13 +43,15 @@ class _CrudState extends State<Crud> {
               return const Text('Something went wrong');
             }
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  CircularProgressIndicator(
-                    valueColor: AlwaysStoppedAnimation<Color>(Colors.teal),
-                  )
-                ],
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation<Color>(Colors.teal),
+                    )
+                  ],
+                ),
               );
             }
             return ListView(
@@ -65,7 +74,12 @@ class _CrudState extends State<Crud> {
                       color: Colors.teal,
                       foregroundColor: Colors.white,
                       onTap: (){
-                        Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context)=>EditData(kode: data['kode'],nama_pelanggan: data['nama_pelanggan'],material: data['material'])));
+                        Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context)=>EditData(
+                          kode: data['kode'],
+                          nama_pelanggan: data['nama_pelanggan'],
+                          material: data['material'],
+                          index: document.reference,
+                        )));
                       },
                     ),
                     IconSlideAction(
@@ -73,7 +87,9 @@ class _CrudState extends State<Crud> {
                       icon: Icons.delete_outline,
                       color: Colors.red,
                       foregroundColor: Colors.white,
-                      onTap: (){},
+                      onTap: (){
+                        _deleteData(document);
+                      },
                     )
                   ],
                 );
