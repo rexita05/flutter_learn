@@ -14,7 +14,7 @@ class Crud extends StatefulWidget {
 }
 
 class _CrudState extends State<Crud> {
-  final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance.collection('pelanggan').snapshots()
+  final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance.collection('pelanggan').snapshots();
   String title="Learn CRUD";
   @override
   Widget build(BuildContext context) {
@@ -65,7 +65,7 @@ class _CrudState extends State<Crud> {
                       color: Colors.teal,
                       foregroundColor: Colors.white,
                       onTap: (){
-                        Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context)=>const EditData()));
+                        Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context)=>EditData(kode: data['kode'],nama_pelanggan: data['nama_pelanggan'],material: data['material'])));
                       },
                     ),
                     IconSlideAction(
@@ -77,11 +77,6 @@ class _CrudState extends State<Crud> {
                     )
                   ],
                 );
-                // return ListTile(
-                //   title: Text(data['kode']),
-                //   subtitle: Text(data['nama_pelanggan'], style: const TextStyle(color: Colors.black),),
-                //   onTap: (){},
-                // );
               }).toList(),
             );
           },
