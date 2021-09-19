@@ -18,7 +18,7 @@ class _CrudState extends State<Crud> {
 
   _deleteData(document){
     FirebaseFirestore.instance.runTransaction((transaction)async{
-      DocumentSnapshot snapshot=await transaction.get(document.reference);
+      DocumentSnapshot snapshot = await transaction.get(document.reference);
       await transaction.delete(snapshot.reference);
     });
   }
@@ -63,8 +63,8 @@ class _CrudState extends State<Crud> {
                   child: Container(
                     color: Colors.white,
                     child: ListTile(
-                        title: Text(data['kode']),
-                        subtitle: Text(data['nama_pelanggan'], style: const TextStyle(color: Colors.black),),
+                      title: Text(data['kode']),
+                      subtitle: Text(data['nama_pelanggan'], style: const TextStyle(color: Colors.black),),
                     ),
                   ),
                   secondaryActions: [
