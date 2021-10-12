@@ -194,7 +194,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin{
               trailing: const FaIcon(FontAwesomeIcons.listAlt, size: 19,),
               onTap: (){
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (BuildContext context)=>const crud.Crud())
+                    builder: (BuildContext context)=>const  crud.Crud())
                 );
               },
             ),
