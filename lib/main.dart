@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter_learn/ui/stepper.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -195,6 +196,15 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin{
               onTap: (){
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (BuildContext context)=>const  crud.Crud())
+                );
+              },
+            ),
+            ListTile(
+              title: const Text("Step"),
+              trailing: const Icon(Icons.list),
+              onTap: (){
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (BuildContext context)=>const StepPage())
                 );
               },
             ),
